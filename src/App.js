@@ -1,23 +1,40 @@
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { useEffect } from 'react';
+
+const BASE_URL = process.env.REACT_APP_SPA;
+console.log(BASE_URL);
 
 function App() {
+  const login = async ({ email, password }) => {
+    try {
+      const result = await axios.post(`${BASE_URL}/user/login`, { email, password });
+      if (result?.data?.token) {
+        toast.success(result?.data?.message);
+      }
+      console.log('login ', result);
+    } catch (error) {
+      console.error('login ', error);
+      toast.error(error?.response?.data?.message || 'Login failed');
+    }
+  };
+
+  useEffect(() => {
+    const email = 'akash@gmail.com';
+    const password = 'Akash@123';
+
+    const loginInterval = setInterval(() => {
+      login({ email, password });
+    }, 3*6*1000);
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(loginInterval);
+  }, []); // Empty dependency array ensures this runs only once when the component mounts
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h2>SERVER-STARTER</h2>
     </div>
   );
 }
