@@ -3,6 +3,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useEffect } from 'react';
 
+
 const BASE_URL = process.env.REACT_APP_SPA;
 console.log(BASE_URL);
 
@@ -21,8 +22,8 @@ function App() {
   };
 
   useEffect(() => {
-    const email = 'akash@gmail.com';
-    const password = 'Akash@123';
+    const email = process.env.REACT_APP_EMAIL;
+    const password = process.env.REACT_APP_PASSWORD;
 
     const loginInterval = setInterval(() => {
       login({ email, password });
