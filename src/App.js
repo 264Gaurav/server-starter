@@ -28,7 +28,7 @@ function App() {
 
     const loginInterval = setInterval(() => {
       login({ email, password });
-    }, 3*1*1000);
+    }, 3*60*1000);
 
     // Cleanup interval on component unmount
     return () => clearInterval(loginInterval);
