@@ -12,7 +12,8 @@ function App() {
     try {
       const result = await axios.post(`${BASE_URL}/user/login`, { email, password });
       if (result?.data?.token) {
-        toast.success(result?.data?.message);
+        //console.log(result?.data?.user?.email, "looged in")
+        toast.success("You are logged In ");
       }
       //console.log('login ', result);
     } catch (error) {
@@ -27,7 +28,7 @@ function App() {
 
     const loginInterval = setInterval(() => {
       login({ email, password });
-    }, 3*6*1000);
+    }, 3*1*1000);
 
     // Cleanup interval on component unmount
     return () => clearInterval(loginInterval);
